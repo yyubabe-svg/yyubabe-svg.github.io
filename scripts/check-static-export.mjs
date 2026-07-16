@@ -37,18 +37,26 @@ await exists(join(out, "index.html"), "首页静态文件");
 await exists(join(out, "404.html"), "GitHub Pages 404 页面");
 await exists(join(out, ".nojekyll"), ".nojekyll");
 await exists(join(out, "og.png"), "Open Graph 图片");
-await exists(join(out, "resume", "resume.pdf"), "简历 PDF");
 await exists(join(out, "demos", "shushui-ai", "user-manual.html"), "蜀水 AI 用户手册");
-await exists(join(out, "notes", "index.html"), "构建笔记页面");
-await exists(join(out, "now", "index.html"), "Now 页面");
+await exists(join(out, "work", "index.html"), "Work 索引");
+await exists(join(out, "contact", "index.html"), "联系页面");
 
 await inspectHtml(join(out, "index.html"), "首页");
-await inspectHtml(join(out, "notes", "index.html"), "构建笔记页面");
-await inspectHtml(join(out, "now", "index.html"), "Now 页面");
+await inspectHtml(join(out, "work", "index.html"), "Work 索引");
+await inspectHtml(join(out, "contact", "index.html"), "联系页面");
+const homeHtml = await readFile(join(out, "index.html"), "utf8");
+for (const required of ["我关注那些", "反复发生", "却从未被认真设计过"]) {
+  if (!homeHtml.includes(required)) failures.push(`首页缺少：${required}`);
+}
+for (const forbidden of ["AI Product Creator", "五个行业命题", "跨行业能力地图", "简历"]) {
+  if (homeHtml.includes(forbidden)) failures.push(`首页仍包含：${forbidden}`);
+}
 for (const slug of slugs) {
-  const page = join(out, "projects", slug, "index.html");
-  await exists(page, `项目页面 ${slug}`);
-  await inspectHtml(page, `项目页面 ${slug}`);
+  const page = join(out, "work", slug, "index.html");
+  const legacyPage = join(out, "projects", slug, "index.html");
+  await exists(page, `Work 项目页面 ${slug}`);
+  await inspectHtml(page, `Work 项目页面 ${slug}`);
+  await exists(legacyPage, `旧项目页面 ${slug}`);
 }
 
 try {

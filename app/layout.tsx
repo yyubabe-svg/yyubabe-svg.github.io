@@ -7,13 +7,13 @@ import "../styles/narrative.css";
 const siteUrl = getSiteUrl();
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: { default: "马钰 · 从身边问题开始构建", template: "%s · 马钰" },
-  description: "马钰的个人产品主页，记录从舞蹈爱好、家庭健康、嵌入式研发和工程场景中发现问题，并通过 AI、软件和产品设计进行验证的过程。",
-  keywords: ["马钰", "产品构建", "真实需求", "DanceHolic", "家庭健康", "嵌入式研发", "数字孪生", "AI 产品"],
-  openGraph: { title: "马钰 · 看见问题，然后试着做点什么", description: "从爱好、家人、工作和身边观察开始的个人产品记录。", type: "website", locale: "zh_CN", url: siteUrl, images: [`${siteUrl}/og.png`] },
-  twitter: { card: "summary_large_image", title: "Yu Ma · Starting from what I see around me", description: "Learning by noticing, questioning and building.", images: [`${siteUrl}/og.png`] },
+  title: { default: "SIGNALS · Yu Ma", template: "%s · SIGNALS" },
+  description: "Questions hidden inside ordinary life. Five signals, five evolving systems, and the evidence currently available.",
+  keywords: ["SIGNALS", "Yu Ma", "DanceHolic", "Family Health", "Embedded R&D", "Digital Twin", "Enterprise Systems"],
+  openGraph: { title: "SIGNALS · Yu Ma", description: "Questions hidden inside ordinary life.", type: "website", locale: "zh_CN", url: siteUrl },
+  twitter: { card: "summary", title: "SIGNALS · Yu Ma", description: "Questions hidden inside ordinary life." },
   icons: { icon: `${siteUrl}/favicon.svg`, shortcut: `${siteUrl}/favicon.svg` },
 };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
-  return <html lang="zh-CN" suppressHydrationWarning><body id="top"><a className="skip-link" href="#main">跳到主要内容</a><SiteHeader /><main id="main">{children}</main><SiteFooter /></body></html>;
+  return <html lang="zh-CN" data-theme="dark" suppressHydrationWarning><body id="top"><a className="skip-link" href="#main">跳到主要内容</a><SiteHeader /><main id="main">{children}</main><SiteFooter /></body></html>;
 }
