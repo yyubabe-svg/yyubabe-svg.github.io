@@ -15,11 +15,11 @@
 
 ## 技术栈
 
-- Next.js / vinext / React / TypeScript（严格模式）
+- Next.js 16 App Router / React / TypeScript（严格模式）
 - Tailwind CSS 4（基础导入）+ 项目级设计 Token 与原生 CSS
 - Lucide React
 - Node Test Runner
-- Cloudflare Workers / Vercel / Docker 可部署结构
+- GitHub Pages 静态导出 / Cloudflare Workers / Vercel / Docker 可部署结构
 
 ## 目录结构
 
@@ -34,6 +34,8 @@ components/
 data/                      个人资料、项目、能力、时间线
 public/projects/           五个项目的真实截图预留目录
 public/resume/             简历 PDF
+scripts/                   静态导出与 Pages 检查脚本
+.github/workflows/         GitHub Pages 自动部署
 tests/                     数据与站点契约测试
 ```
 
@@ -55,6 +57,7 @@ npm run lint
 npm run typecheck
 npm run test
 npm run build
+npm run check:export
 npm run start
 ```
 
@@ -62,10 +65,10 @@ npm run start
 
 ```bash
 docker build -t yu-ma-product-lab .
-docker run --rm -p 3000:3000 -e NEXT_PUBLIC_SITE_URL=https://your-domain.example yu-ma-product-lab
+docker run --rm -p 3000:3000 -e NEXT_PUBLIC_SITE_URL=https://yyubabe-svg.github.io yu-ma-product-lab
 ```
 
-普通 Linux 服务器也可直接安装 Node.js 22，运行 `npm ci && npm run build && npm run start`，再使用 Nginx/Caddy 反向代理到 3000 端口。
+普通 Linux 服务器也可直接安装 Node.js 22，运行 `npm ci && npm run build && npm run start`。`start` 使用轻量静态服务器提供 `out` 目录。
 
 ## Vercel 部署
 
@@ -75,7 +78,83 @@ docker run --rm -p 3000:3000 -e NEXT_PUBLIC_SITE_URL=https://your-domain.example
 4. 添加 `NEXT_PUBLIC_SITE_URL=https://你的正式域名`。
 5. 部署完成后检查 sitemap、分享卡片和项目详情 URL。
 
-Cloudflare Pages/Workers 可直接使用仓库内 vinext 与 `.openai/hosting.json` 配置执行 `npm run build`。
+Cloudflare Workers/Sites 仍可使用仓库内 vinext 与 `.openai/hosting.json` 配置执行 `npm run build:cloudflare`。
+
+## GitHub Pages 部署
+
+目标仓库是个人主页仓库：
+
+```text
+yyubabe-svg/yyubabe-svg.github.io
+```
+
+因此正式地址位于根路径：
+
+```text
+https://yyubabe-svg.github.io/
+```
+
+`.github/workflows/deploy-pages.yml` 会在每次推送 `main` 后自动执行：安装依赖、lint、类型检查、测试、Next.js 静态导出、产物检查、上传和部署。也可在 Actions 页面手动运行。
+
+### 首次启用
+
+1. 将代码推送到 `main`：
+
+   ```bash
+   git add .
+   git commit -m "Deploy portfolio"
+   git push github main
+   ```
+
+2. 打开仓库 `Settings → Pages`。
+3. 在 `Build and deployment → Source` 选择 `GitHub Actions`。
+4. 打开 `Actions → Deploy Portfolio to GitHub Pages` 查看进度。
+5. 部署完成后访问 `https://yyubabe-svg.github.io/`。
+
+之后每次推送 `main` 都会自动更新网站。
+
+### 普通项目仓库模式
+
+工作流会从 `GITHUB_REPOSITORY` 自动判断仓库类型。如果仓库名不是 `.github.io`，会自动设置：
+
+```text
+NEXT_PUBLIC_BASE_PATH=/<repository-name>
+NEXT_PUBLIC_SITE_URL=https://<username>.github.io/<repository-name>
+```
+
+不需要手动修改源代码。`next.config.ts`、公共资源与导出检查均支持该子路径。
+
+### 本地模拟静态站点
+
+```bash
+npm run build
+npm run check:export
+npm run preview:static
+```
+
+普通仓库子路径验证：
+
+```bash
+NEXT_PUBLIC_BASE_PATH=/portfolio \
+NEXT_PUBLIC_SITE_URL=https://yyubabe-svg.github.io/portfolio \
+npm run build
+npm run check:export
+```
+
+### 自定义域名
+
+先在 GitHub `Settings → Pages → Custom domain` 填写域名，再将该域名写入 `public/CNAME`。当前没有写死 CNAME，避免错误绑定。DNS 生效后启用 `Enforce HTTPS`。
+
+### 常见故障
+
+- 图片或 `_next` 资源 404：检查 Actions 中推导出的 `NEXT_PUBLIC_BASE_PATH`，个人主页仓库必须为空。
+- 详情页刷新 404：确认 `trailingSlash: true`，并检查 `out/projects/<slug>/index.html` 是否存在。
+- 动态路由无法导出：项目必须存在唯一非空 slug，详情页必须保留 `generateStaticParams()`。
+- `npm ci` 失败：确认 `package-lock.json` 与 `package.json` 同步并使用 Node.js 22。
+- Google Font 构建失败：本站已改用系统字体栈，不依赖构建时字体下载。
+- API Route 无法使用：GitHub Pages 没有 Node.js 服务端；本站联系表单使用 mailto，不依赖 API。
+- Actions 没有部署权限：确认 Pages Source 为 GitHub Actions，并保留工作流中的 `pages: write` 和 `id-token: write`。
+- 自定义域名 HTTPS 未生效：先检查 DNS/CNAME，再等待 GitHub 签发证书。
 
 ## 修改内容
 
@@ -109,10 +188,11 @@ public/projects/opengov-ai-os/cover.webp
 复制 `.env.example` 为 `.env.local`：
 
 ```bash
-NEXT_PUBLIC_SITE_URL=https://your-domain.example
+NEXT_PUBLIC_SITE_URL=https://yyubabe-svg.github.io
+NEXT_PUBLIC_BASE_PATH=
 ```
 
-该值用于 canonical 基础地址、分享元数据、sitemap 和 robots。项目不需要密钥，联系表单不上传数据。
+`NEXT_PUBLIC_SITE_URL` 用于分享元数据、sitemap 和 robots；`NEXT_PUBLIC_BASE_PATH` 用于普通项目仓库的子路径，个人主页仓库保持为空。项目不需要密钥，联系表单不上传数据。
 
 ## 已知限制
 
