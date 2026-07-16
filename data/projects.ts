@@ -140,7 +140,7 @@ export const projects: Project[] = [
     progress: ["iOS 产品形态与动作分析流程进入 MVP", "网页演示呈现交互逻辑，结果为模拟", "复杂多人遮挡和跨视角鲁棒性持续探索"],
     nextSteps: ["用多舞种样本验证时间轴对齐", "优化端侧关键点滤波", "邀请舞蹈老师校准建议语言"],
     disclaimer: "MVP 阶段。动作偏差与建议为交互演示模拟结果，不构成专业训练或医疗建议。",
-    links: { github: "https://github.com/yyubabe-svg/Yubabe_shui" },
+    links: { github: "https://github.com/yyubabe-svg/motion-tracker" },
   },
   {
     slug: "opengov-ai-os", title: "OpenGov AI OS", englishTitle: "Configurable Enterprise AI Operating System",
