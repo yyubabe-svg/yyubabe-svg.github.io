@@ -1,0 +1,4 @@
+"use client";
+import { useEffect, useState } from "react";
+const items=[["overview","概述"],["challenge","问题与目标"],["users","用户与方案"],["workflow","产品流程"],["architecture","系统架构"],["ai","AI 能力"],["demo","交互演示"],["decisions","难点与权衡"],["progress","进展与下一步"]];
+export function ProjectToc(){const [active,setActive]=useState("overview");useEffect(()=>{const observer=new IntersectionObserver(entries=>{const visible=entries.filter(e=>e.isIntersecting).sort((a,b)=>b.intersectionRatio-a.intersectionRatio)[0];if(visible)setActive(visible.target.id)},{rootMargin:"-20% 0px -65%",threshold:[0,.25,.5]});items.forEach(([id])=>{const el=document.getElementById(id);if(el)observer.observe(el)});return()=>observer.disconnect()},[]);return <aside className="project-toc" aria-label="项目详情目录"><span>CASE STUDY</span>{items.map(([id,label])=><a key={id} className={active===id?"active":""} href={`#${id}`}>{label}</a>)}</aside>}

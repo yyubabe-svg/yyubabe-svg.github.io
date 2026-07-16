@@ -1,0 +1,3 @@
+import Link from "next/link";
+import { navItems, profile } from "../../data/profile";
+export function SiteFooter() { return <footer className="site-footer"><div className="footer-grid"><div><p className="eyebrow">AI Product Builder</p><h2>让 AI 进入真实工作流。</h2><p>{profile.intro}</p></div><div><strong>导航</strong>{navItems.map((item)=><Link key={item.href} href={item.href}>{item.label}</Link>)}</div><div><strong>联系</strong><span>{profile.email}</span><span>{profile.github}</span><Link href={profile.resumeUrl} target="_blank">查看简历</Link></div></div><div className="footer-bottom"><span>© {new Date().getFullYear()} {profile.name}. Built as a product, not a template.</span><Link href="#top">返回顶部 ↑</Link></div></footer> }

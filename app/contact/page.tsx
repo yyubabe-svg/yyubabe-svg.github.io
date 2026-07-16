@@ -1,0 +1,7 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { CopyEmail } from "../../components/ui/CopyEmail";
+import { ContactForm } from "../../components/projects/ContactForm";
+import { profile } from "../../data/profile";
+export const metadata:Metadata={title:"联系",description:"讨论 AI 产品共创、垂直行业数字化、企业平台与全栈开发合作。"};
+export default function Contact(){return <div className="page-shell inner-page"><header className="page-hero contact-hero"><p className="eyebrow">CONTACT / BUILD TOGETHER</p><h1>让我们从一个<br/><em>真实问题</em>开始。</h1><p>如果你正在推动 AI 产品、垂直行业数字化、企业平台或需要把一个复杂想法做成可运行系统，欢迎具体聊聊。</p></header><div className="contact-layout"><aside className="contact-info"><div><small>EMAIL</small><strong>{profile.email}</strong><CopyEmail email={profile.email}/></div><div><small>GITHUB</small><strong>{profile.github}</strong><span>{profile.github.includes("替换")?"地址待补充":"外链将在新标签页打开"}</span></div><div><small>WECHAT / LINKEDIN</small><strong>待补充</strong><span>可在 data/profile.ts 统一更新</span></div><div><small>RESUME</small><Link href={profile.resumeUrl} target="_blank" rel="noopener noreferrer">查看简历 PDF ↗</Link></div><div className="collaboration-directions"><small>合作方向</small>{["AI 产品共创","垂直行业数字化","企业 AI 平台","创新项目孵化","全栈产品开发","技术合作与岗位机会"].map(x=><span key={x}>{x}</span>)}</div></aside><ContactForm/></div></div>}

@@ -1,0 +1,9 @@
+import type { Metadata } from "next";
+import { SectionHeading } from "../../components/ui/SectionHeading";
+import { profile } from "../../data/profile";
+import { timeline } from "../../data/timeline";
+export const metadata:Metadata={title:"关于我",description:"关于马钰的产品方法、工作方式、优势与当前关注方向。"};
+const way=["理解行业和用户","拆解复杂流程","快速制作原型","设计系统架构","完成全栈实现","通过测试持续验证","将 Demo 推向可交付产品"];
+const strengths=["跨行业学习能力","产品与工程结合","从 0 到 1 构建","快速原型验证","对 AI 新能力敏感","重视真实落地","关注细节和体验"];
+const focus=["AI Native 产品","企业 AI OS","多模态 Agent","智慧工程","数字孪生","计算机视觉","端侧智能","AI 与真实设备连接"];
+export default function About(){return <div className="page-shell inner-page"><header className="page-hero about-hero"><p className="eyebrow">ABOUT / PRODUCT BUILDER</p><h1>在产品、AI 与工程之间，<br/><em>寻找真实价值。</em></h1><p>我喜欢从真实问题出发设计产品，并尝试把人工智能、工程技术和用户体验连接起来。我的项目横跨银发健康、水利工程、芯片研发、动作理解和政企数字化，但它们都在回答同一个问题：AI 怎样才能真正进入现实世界的工作流，并为人创造可感知的价值？</p><div className="about-signature"><span>{profile.name}</span><small>{profile.englishTitle}</small></div></header><section className="about-section"><SectionHeading eyebrow="01 / HOW I WORK" title="我的工作方式"/><div className="work-steps">{way.map((x,i)=><div key={x}><span>0{i+1}</span><strong>{x}</strong></div>)}</div></section><section className="about-section two-column-about"><div><SectionHeading eyebrow="02 / STRENGTHS" title="我的优势"/><div className="statement-list">{strengths.map(x=><p key={x}>{x}</p>)}</div></div><div><SectionHeading eyebrow="03 / CURRENT FOCUS" title="当前关注"/><div className="focus-orbit">{focus.map((x,i)=><span key={x} style={{"--i":i} as React.CSSProperties}>{x}</span>)}</div></div></section><section className="about-section"><SectionHeading eyebrow="04 / TIMELINE" title="可编辑成长时间线" description="没有虚构日期；这些节点在 data/timeline.ts 中集中维护。"/><div className="timeline">{timeline.map((item,i)=><div key={item.phase}><span>0{i+1}</span><time>{item.date}</time><h3>{item.phase}</h3><p>{item.description}</p></div>)}</div></section></div>}

@@ -1,0 +1,5 @@
+"use client";
+import { useState } from "react";
+import { capabilityGroups } from "../../data/capabilities";
+const levels=["全部","使用过","项目实践","深入探索","正在学习"];
+export function CapabilityMap(){const [level,setLevel]=useState("全部");return <><div className="level-filter">{levels.map(x=><button key={x} onClick={()=>setLevel(x)} className={level===x?"active":""}>{x}</button>)}</div><div className="capability-map">{capabilityGroups.map((group,index)=><section id={group.english.toLowerCase()} key={group.category} className="capability-group"><div className="capability-group-head"><span>0{index+1}</span><div><small>{group.english}</small><h2>{group.category}</h2><p>{group.description}</p></div></div><div className="capability-nodes">{group.items.filter(x=>level==="全部"||x.level===level).map((item,i)=><div key={item.name} className={`level-node node-${item.level}`}><span>{String(i+1).padStart(2,"0")}</span><strong>{item.name}</strong><i>{item.level}</i><p>{item.projects.join(" · ")}</p></div>)}</div></section>)}</div></>}

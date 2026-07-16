@@ -1,0 +1,2 @@
+import type { ArchitectureNode } from "../../data/projects";
+export function ArchitectureDiagram({nodes}: {nodes:ArchitectureNode[]}){return <div className="architecture-diagram" role="list">{nodes.map((node,index)=><div key={node.id} role="listitem" className="architecture-node" tabIndex={0}><span>{node.layer}</span><strong>{node.label}</strong><p>{node.detail}</p>{index<nodes.length-1&&<i aria-hidden="true">↓</i>}</div>)}</div>}
