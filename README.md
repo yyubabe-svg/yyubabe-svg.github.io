@@ -116,8 +116,9 @@ NEXT_PUBLIC_SITE_URL=https://your-domain.example
 
 ## 已知限制
 
-- 邮箱、GitHub、微信和 LinkedIn 仍保留真实信息占位符。
+- 邮箱、GitHub 和微信已配置；LinkedIn 仍待补充。
 - 除 DanceHolic 图标外，项目真实截图尚未提供，当前使用明确标识的代码化演示视觉。
+- 蜀水智库 AI 已接入公开用户手册与 GitHub 仓库；DanceHolic 暂按提供信息使用同一仓库地址，发布前建议再次确认。
 - 中文为完整首发版本，EN 按钮仅提示英文版筹备中。
 - 交互 Demo 全部使用模拟数据，不代表真实客户、订单或工程/医疗结论。
 - 联系表单使用本机 `mailto` 生成草稿；未配置服务端表单存储。

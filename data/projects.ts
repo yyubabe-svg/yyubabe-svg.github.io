@@ -78,6 +78,7 @@ export const projects: Project[] = [
     progress: ["知识问答、GIS 门户与数字孪生方向持续研发", "系统集成采用适配器分阶段验证", "实时监测与三维联动使用模拟数据验证"],
     nextSteps: ["完成一个真实工程数据闭环", "细化角色权限矩阵", "验证 HEC-RAS / SWMM 任务适配"],
     disclaimer: "持续研发阶段。交互演示中的水位、风险点和工程摘要均为模拟数据，不代表真实工程结论。",
+    links: { demo: "/demos/shushui-ai/user-manual.html", github: "https://github.com/yyubabe-svg/Yubabe_shui", document: "/demos/shushui-ai/user-manual.html" },
   },
   {
     slug: "chip-devops", title: "SiliconFlow DevOps", englishTitle: "AI-Native Semiconductor R&D Platform",
@@ -139,6 +140,7 @@ export const projects: Project[] = [
     progress: ["iOS 产品形态与动作分析流程进入 MVP", "网页演示呈现交互逻辑，结果为模拟", "复杂多人遮挡和跨视角鲁棒性持续探索"],
     nextSteps: ["用多舞种样本验证时间轴对齐", "优化端侧关键点滤波", "邀请舞蹈老师校准建议语言"],
     disclaimer: "MVP 阶段。动作偏差与建议为交互演示模拟结果，不构成专业训练或医疗建议。",
+    links: { github: "https://github.com/yyubabe-svg/Yubabe_shui" },
   },
   {
     slug: "opengov-ai-os", title: "OpenGov AI OS", englishTitle: "Configurable Enterprise AI Operating System",
