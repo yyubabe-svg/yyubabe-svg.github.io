@@ -1,5 +1,24 @@
 "use client";
+
 import { useState } from "react";
-import { capabilityGroups } from "../../data/capabilities";
-const levels=["全部","使用过","项目实践","深入探索","正在学习"];
-export function CapabilityMap(){const [level,setLevel]=useState("全部");return <><div className="level-filter">{levels.map(x=><button key={x} onClick={()=>setLevel(x)} className={level===x?"active":""}>{x}</button>)}</div><div className="capability-map">{capabilityGroups.map((group,index)=><section id={group.english.toLowerCase()} key={group.category} className="capability-group"><div className="capability-group-head"><span>0{index+1}</span><div><small>{group.english}</small><h2>{group.category}</h2><p>{group.description}</p></div></div><div className="capability-nodes">{group.items.filter(x=>level==="全部"||x.level===level).map((item,i)=><div key={item.name} className={`level-node node-${item.level}`}><span>{String(i+1).padStart(2,"0")}</span><strong>{item.name}</strong><i>{item.level}</i><p>{item.projects.join(" · ")}</p></div>)}</div></section>)}</div></>}
+import { buildTools, capabilityLevels } from "../../data/capabilities";
+
+export function CapabilityMap() {
+  const [level, setLevel] = useState("全部");
+  const tools = buildTools.filter((tool) => level === "全部" || tool.level === level);
+  return <>
+    <div className="level-filter" aria-label="按实践状态筛选">{capabilityLevels.map((item) => <button type="button" key={item} onClick={() => setLevel(item)} className={level === item ? "active" : ""} aria-pressed={level === item}>{item}</button>)}</div>
+    <div className="tool-evidence-grid">
+      {tools.map((tool, index) => <article key={tool.name}>
+        <div className="tool-head"><span>{String(index + 1).padStart(2, "0")}</span><div><small>{tool.level}</small><h2>{tool.name}</h2></div></div>
+        <p className="tool-why">{tool.why}</p>
+        <dl>
+          <div><dt>用在哪里</dt><dd>{tool.usedFor}</dd></div>
+          <div><dt>解决了什么</dt><dd>{tool.solved}</dd></div>
+          <div><dt>没有解决什么</dt><dd>{tool.limitation}</dd></div>
+          <div><dt>还要学习</dt><dd>{tool.next}</dd></div>
+        </dl>
+      </article>)}
+    </div>
+  </>;
+}

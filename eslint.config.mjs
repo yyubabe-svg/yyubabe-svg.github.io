@@ -11,6 +11,8 @@ const eslintConfig = defineConfig([
     ".next/**",
     "out/**",
     "build/**",
+    "portfolio-deck/**",
+    ".trae-html-share-packages/**",
     "next-env.d.ts",
   ]),
 ]);

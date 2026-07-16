@@ -39,8 +39,12 @@ await exists(join(out, ".nojekyll"), ".nojekyll");
 await exists(join(out, "og.png"), "Open Graph 图片");
 await exists(join(out, "resume", "resume.pdf"), "简历 PDF");
 await exists(join(out, "demos", "shushui-ai", "user-manual.html"), "蜀水 AI 用户手册");
+await exists(join(out, "notes", "index.html"), "构建笔记页面");
+await exists(join(out, "now", "index.html"), "Now 页面");
 
 await inspectHtml(join(out, "index.html"), "首页");
+await inspectHtml(join(out, "notes", "index.html"), "构建笔记页面");
+await inspectHtml(join(out, "now", "index.html"), "Now 页面");
 for (const slug of slugs) {
   const page = join(out, "projects", slug, "index.html");
   await exists(page, `项目页面 ${slug}`);

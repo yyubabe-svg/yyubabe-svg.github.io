@@ -1,14 +1,15 @@
-# 马钰 · AI 产品实验室
+# 马钰 · 个人产品记录
 
-一个面向正式发布的个人作品集，不是传统简历页。网站以五个行业产品案例展示从需求洞察、产品设计、AI 能力、全栈开发到私有化工程落地的完整能力。
+一个从生活、家人、工作经历和身边观察出发的个人主页。网站不把项目包装成行业标签，而是记录马钰看见了什么、为什么在意、做过哪些尝试、走过什么弯路，以及还有哪些问题没有解决。
 
 ## 功能
 
-- 首页品牌叙事、能力网络、精选项目、产品方法、跨行业矩阵和共同技术底座
-- 项目总览、行业/技术筛选与关键词搜索
-- 五个结构完整、视觉差异化的案例研究详情页
+- 首页两种阅读路径、观察半径、三个真实起点、个人做事手册和判断修订
+- 项目总览、来源/技术双重筛选与关键词搜索
+- 五个包含起源、个人连接、弯路、证据、假设和开放问题的构建记录
 - 水利数字孪生、芯片流水线、动作理解、慢病三端协同和行业配置器交互演示
-- 能力实验室、关于、联系、自定义 404
+- “我怎样把事情做出来”、关于、构建笔记、Now、联系和自定义 404
+- 默认温暖浅色、可切换深色主题；微信默认脱敏并由用户主动显示
 - 深浅主题、移动端菜单、当前导航高亮、滚动目录、上一页/下一页、复制邮箱
 - SEO 元数据、Open Graph、Twitter Card、sitemap、robots 和项目结构化数据
 - 键盘操作、Reduced Motion、图片懒加载和图片缺失降级
@@ -27,11 +28,14 @@
 app/                       页面、动态项目路由、SEO 路由
 components/
   layout/                  导航、页脚、主题
-  home/                    首页叙事组件
-  projects/                筛选、详情目录、交互 Demo
+  home/                    观察半径、真实起点、判断变化、Now
+  projects/                来源筛选、证据、弯路、目录、交互 Demo
+  notes/                   构建笔记展开组件
+  contact/                 微信隐私交互
   visualizations/          架构、流程、能力矩阵
   ui/                      按钮、标题、媒体降级
-data/                      个人资料、项目、能力、时间线
+data/                      个人、项目、旅程、能力、笔记、Now、原则
+styles/                    新叙事视觉与响应式覆盖
 public/projects/           五个项目的真实截图预留目录
 public/resume/             简历 PDF
 scripts/                   静态导出与 Pages 检查脚本
@@ -158,10 +162,13 @@ npm run check:export
 
 ## 修改内容
 
-- 个人姓名、标题、邮箱、GitHub、LinkedIn、微信和简历地址：`data/profile.ts`
-- 五个项目全部案例研究内容：`data/projects.ts`
-- 能力分类和实践状态：`data/capabilities.ts`
-- 关于页时间线：`data/timeline.ts`
+- 个人定位、联系方式与微信隐私配置：`data/profile.ts`
+- 五个项目的起源、证据、弯路和开放问题：`data/projects.ts`
+- 构建路径与技术证据：`data/capabilities.ts`
+- 观察与判断变化记录：`data/journey.ts`
+- 构建笔记：`data/notes.ts`
+- 当前状态：`data/now.ts`
+- 做事手册、判断修订与开放问题：`data/principles.ts`
 
 新增项目时，向 `projects` 数组添加完整 `Project` 对象。动态路由会自动生成详情页、SEO 和上一页/下一页链接；测试会检查必填字段与 slug 唯一性。
 
@@ -181,7 +188,7 @@ public/projects/opengov-ai-os/cover.webp
 
 ## 修改主题
 
-全局颜色、间距、圆角和页面宽度位于 `app/globals.css` 顶部的 CSS 变量。`[data-theme="light"]` 覆盖浅色 Token；主题选择保存在浏览器 `localStorage`。
+基础组件和交互 Demo 样式位于 `app/globals.css`，新的温暖纸张色主题、叙事模块和响应式规则位于 `styles/narrative.css`。默认主题为浅色，`[data-theme="dark"]` 提供深色 Token；选择保存在浏览器 `localStorage`。
 
 ## 环境变量
 
@@ -196,10 +203,10 @@ NEXT_PUBLIC_BASE_PATH=
 
 ## 已知限制
 
-- 邮箱、GitHub 和微信已配置；LinkedIn 仍待补充。
+- 邮箱、GitHub 和微信已配置；微信默认脱敏，完整信息只在主动点击后由浏览器端组合显示；LinkedIn 仍待补充。
 - 除 DanceHolic 图标外，项目真实截图尚未提供，当前使用明确标识的代码化演示视觉。
 - 蜀水智库 AI 已接入公开用户手册与 GitHub 仓库；DanceHolic 已接入公开的 `motion-tracker` 仓库。
-- 中文为完整首发版本，EN 按钮仅提示英文版筹备中。
+- 中文为完整首发版本，完整英文路由尚未实现。
 - 交互 Demo 全部使用模拟数据，不代表真实客户、订单或工程/医疗结论。
 - 联系表单使用本机 `mailto` 生成草稿；未配置服务端表单存储。
 

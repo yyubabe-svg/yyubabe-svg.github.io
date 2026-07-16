@@ -1,21 +1,84 @@
 import Link from "next/link";
 import { ArrowDown, FileText, Github, Mail } from "lucide-react";
-import { CapabilityNetwork } from "../components/home/CapabilityNetwork";
-import { MethodLoop } from "../components/home/MethodLoop";
+import { ChangedBeliefs } from "../components/home/ChangedBeliefs";
+import { NowPreview } from "../components/home/NowPreview";
+import { ObservationRadius } from "../components/home/ObservationRadius";
+import { OpenQuestions } from "../components/home/OpenQuestions";
+import { OriginStories } from "../components/home/OriginStories";
+import { PersonalFieldManual } from "../components/home/PersonalFieldManual";
 import { ProjectShowcase } from "../components/home/ProjectShowcase";
-import { TechFoundation } from "../components/home/TechFoundation";
 import { ButtonLink } from "../components/ui/ButtonLink";
 import { SectionHeading } from "../components/ui/SectionHeading";
-import { CapabilityMatrix } from "../components/visualizations/CapabilityMatrix";
-import { coreCapabilities } from "../data/capabilities";
 import { profile } from "../data/profile";
 
-export default function Home() { return <>
-  <section className="hero page-shell"><div className="hero-copy"><p className="hero-kicker"><span/>AI Product Creator · Industry AI · Full-stack</p><h1>用 AI 构建<br/><em>真实世界</em>中的<br/>下一代产品</h1><p className="hero-en">{profile.englishHeadline}</p><p className="hero-lead">从银发健康、智慧水利、芯片研发，到动作捕捉与政企 AI 操作系统，我尝试把人工智能变成真正可使用、可部署、可持续演进的产品。</p><div className="hero-actions"><ButtonLink href="/projects">查看我的项目</ButtonLink><ButtonLink href="/contact" variant="secondary">联系我</ButtonLink></div><div className="hero-links"><Link href={profile.github} target="_blank" rel="noopener noreferrer"><Github size={15}/> GitHub</Link><Link href={`mailto:${profile.email}`}><Mail size={15}/> 邮箱</Link><Link href={profile.resumeUrl} target="_blank" rel="noopener noreferrer"><FileText size={15}/> 简历</Link></div></div><CapabilityNetwork/><Link className="scroll-cue" href="#capabilities"><ArrowDown size={16}/> 向下探索</Link></section>
-  <section id="capabilities" className="section page-shell"><SectionHeading eyebrow="01 / Capabilities" title="不是单点技能，而是从问题到产品的完整链路" description="我把产品判断、行业理解、AI 能力和工程实现放在同一张图里思考。"/><div className="capability-cards">{coreCapabilities.map((item,index)=><Link key={item.title} href={item.href} className="capability-card"><span>0{index+1}</span><h3>{item.title}</h3><p>{item.description}</p><div>{item.tech.map(t=><i key={t}>{t}</i>)}</div><b>探索能力 →</b></Link>)}</div></section>
-  <section className="section projects-section"><div className="page-shell"><SectionHeading eyebrow="02 / Selected Work" title="五个行业命题，一套产品与工程方法" description="每个项目都从不同的真实问题出发，也共享工作流、智能能力和企业工程底座。"/><ProjectShowcase/></div></section>
-  <section className="section page-shell"><SectionHeading eyebrow="03 / Product Method" title="从真实问题，到可持续迭代的产品系统"/><MethodLoop/></section>
-  <section className="section map-section"><div className="page-shell"><SectionHeading eyebrow="04 / Cross-industry Map" title="跨行业能力地图" description="不是简单堆叠技术标签，而是观察同一种能力在不同工作流中的职责和深度。"/><CapabilityMatrix/></div></section>
-  <section className="section page-shell"><SectionHeading eyebrow="05 / Shared Foundation" title="共同技术底座" description="五个项目表面不同，底层都在连接人、业务流程、智能能力与可靠工程。"/><TechFoundation/></section>
-  <section className="cta-section page-shell"><p className="eyebrow">OPEN TO BUILD</p><h2>我正在寻找能够让 AI<br/>真正进入行业工作流的机会。</h2><div className="cta-tags">{["AI 产品共创","垂直行业数字化","企业 AI 平台","创新项目孵化","全栈产品开发","技术合作与岗位机会"].map(x=><span key={x}>{x}</span>)}</div><ButtonLink href="/contact">开始一场具体的对话</ButtonLink></section>
-  </> }
+export default function Home() {
+  return <>
+    <section className="personal-hero page-shell">
+      <div className="hero-margin-note"><span>OBSERVATION 001</span><small>一个持续修改的个人产品记录</small></div>
+      <div className="personal-hero-copy">
+        <p className="eyebrow">YU MA / PERSONAL PRODUCT NOTES</p>
+        <h1>看见问题，<br /><em>然后试着做点什么。</em></h1>
+        <p className="hero-en">{profile.englishHeadline}</p>
+        <div className="hero-story">
+          <p>我没有给自己预设一个固定的身份。</p>
+          <p>我的很多项目，都来自生活、家人、工作、兴趣和日常交流中反复出现的问题。我会观察它为什么会这样，现有方式为什么不够，以及自己能不能做点什么。</p>
+          <p>然后，我学习需要的知识和技术，把一个模糊想法逐渐做成可以被看见、被使用和被验证的产品。</p>
+          <strong>这里记录的不是我想成为谁，而是我怎样一点点成为自己。</strong>
+        </div>
+        <div className="hero-actions">
+          <ButtonLink href="#origins">先认识我</ButtonLink>
+          <ButtonLink href="/projects" variant="secondary">直接看项目</ButtonLink>
+        </div>
+        <div className="hero-links">
+          <Link href={profile.contact.github} target="_blank" rel="noopener noreferrer"><Github size={15} /> GitHub</Link>
+          <Link href={`mailto:${profile.contact.email}`}><Mail size={15} /> 邮箱</Link>
+          <Link href={profile.resumeUrl} target="_blank" rel="noopener noreferrer"><FileText size={15} /> 简历</Link>
+        </div>
+      </div>
+      <div className="hero-side-note">
+        <span>我会反复问</span>
+        <p>这是事实、观察、判断，还是还没有被验证的假设？</p>
+      </div>
+      <Link className="scroll-cue" href="#origins"><ArrowDown size={16} /> 从项目的起点开始</Link>
+    </section>
+
+    <section id="origins" className="section page-shell observation-section">
+      <SectionHeading eyebrow="01 / WHERE IT STARTED" title="我的项目不是从赛道开始的。" description="它们来自爱好、家人、工作和一次次具体的观察。点击不同半径，看问题怎样从我身边逐渐展开。" />
+      <ObservationRadius />
+    </section>
+
+    <section className="section warm-section"><div className="page-shell">
+      <SectionHeading eyebrow="02 / THREE REAL BEGINNINGS" title="三个真实起点" description="先讲发生过什么，再讲我做了什么。" />
+      <OriginStories />
+    </div></section>
+
+    <section id="projects" className="section page-shell">
+      <SectionHeading eyebrow="03 / THINGS I’M TRYING TO BUILD" title="我对这些问题的回应" description="有些已经做成了可运行版本，有些仍是假设。顺序从自己和爱好，慢慢走向更大的系统。" />
+      <ProjectShowcase />
+    </section>
+
+    <section className="section ink-section"><div className="page-shell">
+      <SectionHeading eyebrow="04 / PERSONAL FIELD MANUAL" title="我怎样做事情" description="不是能力评分，而是我在有限条件下反复使用的工作方式。" />
+      <PersonalFieldManual />
+    </div></section>
+
+    <section className="section page-shell">
+      <SectionHeading eyebrow="05 / REVISIONS" title="我曾经以为 / 后来发现" description="构建最有价值的部分，常常不是证明原来的判断，而是知道它为什么需要被修改。" />
+      <ChangedBeliefs />
+    </section>
+
+    <section className="section questions-section"><div className="page-shell">
+      <SectionHeading eyebrow="06 / OPEN QUESTIONS" title="我还没有想明白的事情" description="这些问题没有被包装成答案，它们决定我接下来要观察和验证什么。" />
+      <OpenQuestions />
+    </div></section>
+
+    <section className="section page-shell"><NowPreview /></section>
+
+    <section className="cta-section page-shell">
+      <p className="eyebrow">START WITH A REAL PROBLEM</p>
+      <h2>如果你也注意到了一个<br />值得认真理解的问题。</h2>
+      <p>可以从具体场景、现有做法和最小验证开始聊，而不是先决定要做一个多大的系统。</p>
+      <ButtonLink href="/contact">和我说说这个问题</ButtonLink>
+    </section>
+  </>;
+}
