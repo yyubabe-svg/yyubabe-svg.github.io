@@ -8,9 +8,9 @@ export function normalizeBasePath(value = ""): string {
 
 export function getRepositoryBasePath(
   repository = process.env.GITHUB_REPOSITORY ?? "",
-  explicit = process.env.NEXT_PUBLIC_BASE_PATH,
+  explicit: string | null | undefined = process.env.NEXT_PUBLIC_BASE_PATH,
 ): string {
-  if (explicit !== undefined) return normalizeBasePath(explicit);
+  if (explicit !== undefined && explicit !== null) return normalizeBasePath(explicit);
   const repositoryName = repository.split("/").filter(Boolean).at(-1) ?? "";
   if (!repositoryName || repositoryName.endsWith(".github.io")) return "";
   return normalizeBasePath(repositoryName);

@@ -38,8 +38,8 @@ test("图片缺失时提供可访问降级视觉", async () => {
 test("basePath 兼容个人主页与普通仓库", () => {
   assert.equal(normalizeBasePath("/"), "");
   assert.equal(normalizeBasePath("//portfolio//"), "/portfolio");
-  assert.equal(getRepositoryBasePath("yyubabe-svg/yyubabe-svg.github.io", undefined), "");
-  assert.equal(getRepositoryBasePath("yyubabe-svg/portfolio", undefined), "/portfolio");
+  assert.equal(getRepositoryBasePath("yyubabe-svg/yyubabe-svg.github.io", null), "");
+  assert.equal(getRepositoryBasePath("yyubabe-svg/portfolio", null), "/portfolio");
   assert.equal(withBasePath("", "/portfolio"), "/portfolio/");
   assert.equal(withBasePath("projects/demo.png", "/portfolio"), "/portfolio/projects/demo.png");
   assert.equal(withBasePath("https://example.com/image.png", "/portfolio"), "https://example.com/image.png");

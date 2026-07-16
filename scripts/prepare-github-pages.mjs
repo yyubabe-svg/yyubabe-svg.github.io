@@ -3,7 +3,7 @@ import { getRepositoryBasePath } from "../lib/base-path.ts";
 
 const repository = process.env.GITHUB_REPOSITORY || process.argv[2] || "yyubabe-svg/yyubabe-svg.github.io";
 const [owner = "yyubabe-svg", name = "yyubabe-svg.github.io"] = repository.split("/");
-const basePath = getRepositoryBasePath(repository, undefined);
+const basePath = getRepositoryBasePath(repository, null);
 const url = `https://${owner}.github.io${basePath}/`;
 
 console.log(`Repository : ${owner}/${name}`);
